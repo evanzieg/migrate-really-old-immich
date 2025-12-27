@@ -96,13 +96,9 @@ if (!userInfo) {
 }
 const oldUserID = userInfo.oldUserID;
 const apiKey = userInfo.apiKey;
-const intendedStepsToRun = [
-  StepsAllowedToRun.CreateTags,
-  StepsAllowedToRun.Assets,
-  StepsAllowedToRun.TagAssets,
-  StepsAllowedToRun.Stacks,
-  StepsAllowedToRun.Albums,
-];
+const intendedStepsToRun = z
+  .array(z.enum(StepsAllowedToRun))
+  .parse(config.intendedStepsToRun);
 const locationOfDBFiles = config.locationOfDBFiles;
 const locationOfDataset = config.locationOfDataset;
 const apiBaseURL = config.apiBaseURL;

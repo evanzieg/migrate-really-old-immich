@@ -14,7 +14,6 @@ import {
   getAlbumInfo,
   addAssetsToAlbum,
 } from "@immich/sdk";
-import readline from "readline-sync";
 import z from "zod";
 
 const fs = {
@@ -469,40 +468,6 @@ let trashedAssets = 0;
 let assetError = false;
 //#region Asset helper
 const uploadAssets = async (typeToUpload: "IMAGE" | "VIDEO") => {
-  const getNewAssetID = async (
-    oldAssetID: string,
-    stackID: string | undefined
-  ) => {
-    let canGetNewID = false;
-
-    const getNewIDPromise = () => {
-      canGetNewID = readline.keyInYNStrict(
-        `Asset ${oldAssetID} could not upload previously, do you have a new ID?`,
-        { defaultInput: "N" }
-      );
-
-      return true;
-    };
-
-    await Promise.race([getNewIDPromise(), setTimeout(() => {}, 5000)]);
-    if (canGetNewID) {
-      const newAssetID = readline.question("Enter the new asset ID: ", {
-        limit: 36,
-      });
-      if (newAssetID) {
-        progress.assetMap[oldAssetID] = newAssetID;
-        delete progress.problemAssets[oldAssetID];
-        if (stackID) {
-          addToStackMap(newAssetID, oldAssetID, stackID);
-        }
-
-        return true;
-      }
-    }
-
-    return false;
-  };
-
   for (const assetLine of assets) {
     const [
       oldAssetID,
@@ -636,20 +601,6 @@ const uploadAssets = async (typeToUpload: "IMAGE" | "VIDEO") => {
         }
       }
     }
-
-    //Let the user have the opportunity to manually add a new asset ID, or just try again
-    // if (progress.problemAssets[oldAssetID]) {
-    //   const getID = await getNewAssetID(oldAssetID, stackID);
-    //   if (getID) {
-    //     inProgressTracker++;
-    //     writeProgressLine(
-    //       `Assets created: ${assetsCreated} / ${
-    //         assets.length - 1 - duplicateAssets - inProgressTracker
-    //       }; Duplicates per server: ${duplicateAssets}; Uploaded per tracker: ${inProgressTracker}`
-    //     );
-    //     continue;
-    //   }
-    // }
 
     let updatedLivePhotoVideoId: string | undefined = undefined;
     if (livePhotoVideoId && livePhotoVideoId !== "\\N") {

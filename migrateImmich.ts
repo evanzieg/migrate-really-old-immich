@@ -110,8 +110,9 @@ init({ baseUrl: apiBaseURL, apiKey });
 //#region Collect progress
 console.log("Preparing to migrate user: " + userToMigrate);
 
+//This is a readonly operation, but "w+" allows the progress tracker to be gracefully created if it doesn't exist and still read in the current state
 const progressSaved: ProgressTrackerSaved = JSON.parse(
-  fs.readFileSync(progressFile).toString()
+  fs.readFileSync(progressFile, { flag: "w+" }).toString()
 );
 
 const progress: ProgressTracker = {

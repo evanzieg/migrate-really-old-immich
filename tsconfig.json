@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": false,
+      "skipLibCheck": true,
+      "target": "esnext",
+      "allowJs": false,
+      "resolveJsonModule": true,
+      "moduleDetection": "force",
+      "isolatedModules": true,
+      "verbatimModuleSyntax": true,
+      "strict": true,
+      "noUncheckedIndexedAccess": true,
+      "noImplicitOverride": true,
+      "module": "NodeNext",
+      "outDir": "dist",
+      "lib": ["ESNext"]
+    }
+  }

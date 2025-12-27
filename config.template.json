@@ -1,0 +1,17 @@
+{
+  "userToMigrate": "<key for below>",
+  "intendedStepsToRun": [1, 2, 3, 4, 5],
+  "locationOfDBFiles": "<file path to unpacked SQL backup>",
+  "locationOfDataset": "<file path to actual asset folders>",
+  "apiBaseURL": "<Your immich URL>/api",
+  "users": {
+    "evan": {
+      "apiKey": "<API key for this user>",
+      "oldUserID": "<guid for user in old instance>"
+    },
+    "otherUser": {
+      "apiKey": "<API key for this user>",
+      "oldUserID": "<guid for user in old instance>"
+    }
+  }
+}
